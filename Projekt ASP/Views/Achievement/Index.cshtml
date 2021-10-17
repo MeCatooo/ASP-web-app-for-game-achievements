@@ -1,0 +1,26 @@
+﻿@model ICollection<Projekt_ASP.Models.Achievement>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h2>Lista rzadkich osiągnięć</h2>
+<div class="achievements">
+    @foreach (var achievement in @Model)
+    {
+        <a asp-action="">
+            <div class="achievement">
+                <div>
+                    @achievement.Name
+                </div>
+                <div>
+                    @achievement.Game
+                </div>
+                <div>
+                    @achievement.Achieved
+                </div>
+            </div>
+        </a>
+    }
+</div>
+<a asp-action="AddAchievement" asp-controller="Achievement">Dodaj</a>

@@ -1,0 +1,22 @@
+﻿@model Projekt_ASP.Models.Achievement
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div>
+    <form asp-action="Add" asp-controller="Achievement" method="post">
+        <div>
+            <input asp-for="Name" />
+        </div>
+        <div>
+            <input asp-for="Game" />
+        </div>
+        <div>
+            <input asp-for="Achieved" />
+        </div>
+        <div>
+            <button type="submit">Dodaj</button>
+        </div>
+    </form>
+</div>
