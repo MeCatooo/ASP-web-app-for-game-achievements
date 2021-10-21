@@ -9,7 +9,7 @@ namespace Projekt_ASP.Controllers
 {
     public class AchievementController : Controller
     {
-        static List<Achievement> achievements = new List<Achievement>();
+        static readonly List<Achievement> achievements = new();
         public IActionResult Index()
         {
             return View(achievements);
@@ -22,6 +22,10 @@ namespace Projekt_ASP.Controllers
         {
             achievements.Add(achievement);
             return View("Index", achievements);
+        }
+        public IActionResult View(Achievement achievement)
+        {
+            return View("Index");
         }
     }
 }
