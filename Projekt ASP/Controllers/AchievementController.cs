@@ -9,19 +9,29 @@ namespace Projekt_ASP.Controllers
 {
     public class AchievementController : Controller
     {
-        static readonly List<Achievement> achievements = new();
-        public IActionResult Index()
+        private AchievementRepositoryInterface repository;
+        static List<Achievement> achievements = new();
+        public AchievementController (AchievementRepositoryInterface repository)
         {
-            return View(achievements);
+            this.repository = repository;
         }
+        public ViewResult Index()
+        {
+            return View(repository.Achievements);
+        }
+        //public IActionResult Index()
+        //{
+        //    return View(achievements);
+        //}
         public IActionResult AddAchievement()
         {
             return View();
         }
         public IActionResult Add(Achievement achievement)
         {
+            
             achievements.Add(achievement);
-            return View("Index", achievements);
+            return View("Index", repository.Achievements);
         }
         public IActionResult View(Achievement achievement)
         {
