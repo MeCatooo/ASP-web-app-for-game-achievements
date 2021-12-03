@@ -9,15 +9,15 @@ namespace Projekt_ASP.Controllers
 {
     public class AchievementController : Controller
     {
-        private AchievementRepositoryInterface repository;
+        private ICRUDAchievementRepository repository;
         static List<Achievement> achievements = new();
-        public AchievementController (AchievementRepositoryInterface repository)
+        public AchievementController (ICRUDAchievementRepository repository)
         {
             this.repository = repository;
         }
         public ViewResult Index()
         {
-            return View(repository.Achievements);
+            return View(repository.FindAll());
         }
         //public IActionResult Index()
         //{
@@ -29,13 +29,21 @@ namespace Projekt_ASP.Controllers
         }
         public IActionResult Add(Achievement achievement)
         {
-            
-            achievements.Add(achievement);
-            return View("Index", repository.Achievements);
+
+            repository.Add(achievement);
+            return View("Index", repository.FindAll());
         }
-        public IActionResult View(Achievement achievement)
+        public IActionResult View(int id)
         {
-            return View("Index");
+            return View(repository.FindById(id));
+        }
+        public IActionResult EditForm(int id)
+        {
+            return View(repository.FindById(id));
+        }
+        public IActionResult Edit(Achievement edited)
+        {
+
         }
     }
 }

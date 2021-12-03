@@ -27,8 +27,9 @@ namespace Projekt_ASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
+            options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
             services.AddTransient<AchievementRepositoryInterface, EFAchievementRepository>();
+            services.AddTransient<ICRUDAchievementRepository, EFCRUDEAchievementRepository>();
 
             services.AddControllersWithViews();
         }

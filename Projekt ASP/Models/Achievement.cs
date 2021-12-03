@@ -11,11 +11,8 @@ namespace Projekt_ASP.Models
         public string Name { get; set; }
         public string Game { get; set; }
         public int Achieved_By_Amount { get; protected set; } = 10; //To do
-        public int Id { get; private set; } = 1;
+        public int Id { get; set; }
 
-        public Achievement()
-        {
-            Id++;
-        }
+        
     }
 }
