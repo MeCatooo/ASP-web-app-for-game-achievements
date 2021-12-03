@@ -43,7 +43,17 @@ namespace Projekt_ASP.Controllers
         }
         public IActionResult Edit(Achievement edited)
         {
-
+            repository.Update(edited);
+            return View("Index",repository.FindAll());
+        }
+        public IActionResult DeleteForm(int id)
+        {
+            return View(repository.FindById(id));
+        }
+        public IActionResult Delete(Achievement achievement)
+        {
+            repository.Delete(achievement.Id);
+            return View("Index", repository.FindAll());
         }
     }
 }
