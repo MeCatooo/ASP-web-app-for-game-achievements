@@ -55,5 +55,17 @@ namespace Projekt_ASP.Controllers
             repository.Delete(achievement.Id);
             return View("Index", repository.FindAll());
         }
+        public IActionResult AddCommentForm(int achievement)
+        {
+            var commnet = new Comment();
+            repository.AddCommentToAchievement(commnet.CommentID,achievement);
+            return View(commnet);
+        }
+        public IActionResult AddComment(Comment comment)
+        {
+            repository.Update(comment);
+            return View("View", comment.Achievement.Id);
+        }
+
     }
 }

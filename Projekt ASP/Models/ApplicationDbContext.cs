@@ -13,6 +13,7 @@ namespace Projekt_ASP.Models
         { 
         }
         public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
     public class EFAchievementRepository : AchievementRepositoryInterface
     {

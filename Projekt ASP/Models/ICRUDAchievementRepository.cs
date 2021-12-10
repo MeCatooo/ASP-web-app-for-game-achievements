@@ -20,6 +20,8 @@ namespace Projekt_ASP.Models
         IList<Achievement> FindAll();
 
         IList<Achievement> FindPage(int page, int size);
+        void AddCommentToAchievement(int CommentID, int AchievementID);
+        Comment Update(Comment comment);
     }
 
     public class EFCRUDEAchievementRepository : ICRUDAchievementRepository
@@ -56,7 +58,7 @@ namespace Projekt_ASP.Models
 
         public IList<Achievement> FindPage(int page, int size)
         {
-            return (from achievement in _context.Achievements orderby achievement.Name select achievement).Skip(page*size).Take(size).ToList();
+            return (from achievement in _context.Achievements orderby achievement.Name select achievement).Skip(page * size).Take(size).ToList();
         }
 
         public Achievement Update(Achievement achievement)
@@ -65,6 +67,19 @@ namespace Projekt_ASP.Models
             _context.SaveChanges();
             return entity.Entity;
 
+        }
+        public void AddCommentToAchievement(int CommentID, int AchievementID)
+        {
+            var comment = _context.Comments.Find(CommentID);
+            var achievement = _context.Achievements.Find(AchievementID);
+            achievement.Comments.Add(comment);
+            Update(achievement);
+        }
+        public Comment Update(Comment comment)
+        {
+            EntityEntry<Comment> entity = _context.Comments.Update(comment);
+            _context.SaveChanges();
+            return entity.Entity;
         }
     }
 

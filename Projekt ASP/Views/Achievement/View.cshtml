@@ -3,6 +3,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+
 }
 <div>Id:@Model.Id</div>
 <div>Nazwa osiągnięcia: @Model.Name</div>
@@ -10,3 +11,5 @@
 
 <span><a asp-controller="Achievement" asp-action="EditForm" asp-route-id="@Model.Id">Edytuj</a></span>
 <span><a asp-controller="Achievement" asp-action="DeleteForm" asp-route-id="@Model.Id">Usuń</a></span>
+<div><a asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.Id">Dodaj komentarz</a></div>
+
