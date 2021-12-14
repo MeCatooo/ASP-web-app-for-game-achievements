@@ -9,6 +9,7 @@ namespace Projekt_ASP.Models
     {
         public int CommentID { get; set; }
         public string Text { get; set; }
+        public int AchievementId { get; set; }
         public Achievement Achievement { get; set; }
     }
 }

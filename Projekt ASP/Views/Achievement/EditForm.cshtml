@@ -6,6 +6,7 @@
 }
 <div class="container-fluid">
     <form asp-action="Edit" asp-controller="Achievement" method="post">
+        <input type="hidden" asp-for="Id" value=@Model.Id/>
         <div class="mb-3">
             <span asp-validation-for="Name"></span>
             <input class="form-control" asp-for="Name" />

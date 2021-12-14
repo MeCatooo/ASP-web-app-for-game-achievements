@@ -23,6 +23,7 @@ namespace Projekt_ASP.Models
             _applicationDbContext = applicationDbContext;
         }
         public IQueryable<Achievement> Achievements => _applicationDbContext.Achievements;
+        public IQueryable<Comment> Comments => _applicationDbContext.Comments;
     }
 
 }

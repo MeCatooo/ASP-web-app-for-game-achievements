@@ -11,5 +11,26 @@
 
 <span><a asp-controller="Achievement" asp-action="EditForm" asp-route-id="@Model.Id">Edytuj</a></span>
 <span><a asp-controller="Achievement" asp-action="DeleteForm" asp-route-id="@Model.Id">Usuń</a></span>
+@{
+    if (Model.Comments != null)
+    {
+        foreach (var item in Model.Comments)
+        {
+            <div>
+                <div>
+                    @item.CommentID
+                    <div>
+                        @item.Text
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>Brak komentarzy</div>
+    }
+
+}
 <div><a asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.Id">Dodaj komentarz</a></div>
 

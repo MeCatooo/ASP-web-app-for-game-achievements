@@ -35,7 +35,9 @@ namespace Projekt_ASP.Controllers
         }
         public IActionResult View(int id)
         {
-            return View(repository.FindById(id));
+            var achievement = repository.FindById(id);
+            achievement.Comments = repository.FindComments(achievement.Id);
+            return View(achievement);
         }
         public IActionResult EditForm(int id)
         {
@@ -55,16 +57,18 @@ namespace Projekt_ASP.Controllers
             repository.Delete(achievement.Id);
             return View("Index", repository.FindAll());
         }
-        public IActionResult AddCommentForm(int achievement)
+        public IActionResult AddCommentForm(int id)
         {
-            var commnet = new Comment();
-            repository.AddCommentToAchievement(commnet.CommentID,achievement);
-            return View(commnet);
+            ViewBag.AchievemntId = id;
+            return View();
         }
         public IActionResult AddComment(Comment comment)
         {
-            repository.Update(comment);
-            return View("View", comment.Achievement.Id);
+            repository.Add(comment);
+            repository.AddCommentToAchievement(comment.CommentID, comment.AchievementId);
+            var achievement = repository.FindById(comment.AchievementId);
+            achievement.Comments = repository.FindComments(comment.AchievementId);
+            return View("View", achievement);
         }
 
     }

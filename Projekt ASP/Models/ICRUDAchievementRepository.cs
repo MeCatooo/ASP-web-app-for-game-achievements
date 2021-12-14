@@ -14,7 +14,8 @@ namespace Projekt_ASP.Models
         void Delete(int id);
 
         Achievement Update(Achievement achievement);
-
+        Comment Add(Comment comment);
+        IList<Comment> FindComments(int id);
         Achievement FindById(int id);
 
         IList<Achievement> FindAll();
@@ -36,6 +37,13 @@ namespace Projekt_ASP.Models
         public Achievement Add(Achievement achievement)
         {
             EntityEntry<Achievement> entityEntry = _context.Achievements.Add(achievement);
+            _context.SaveChanges();
+            return entityEntry.Entity;
+        }
+
+        public Comment Add(Comment comment)
+        {
+            EntityEntry<Comment> entityEntry = _context.Comments.Add(comment);
             _context.SaveChanges();
             return entityEntry.Entity;
         }
@@ -80,6 +88,12 @@ namespace Projekt_ASP.Models
             EntityEntry<Comment> entity = _context.Comments.Update(comment);
             _context.SaveChanges();
             return entity.Entity;
+        }
+
+        public IList<Comment> FindComments(int id)
+        {
+            IEnumerable<Comment> commentsQuery = from Comment in _context.Comments where Comment.AchievementId == id select Comment;
+            return commentsQuery.ToList(); 
         }
     }
 
