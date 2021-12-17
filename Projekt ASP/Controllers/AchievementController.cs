@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Projekt_ASP.Models;
 using System;
 using System.Collections.Generic;
@@ -39,19 +40,23 @@ namespace Projekt_ASP.Controllers
             achievement.Comments = repository.FindComments(achievement.Id);
             return View(achievement);
         }
+        [Authorize]
         public IActionResult EditForm(int id)
         {
             return View(repository.FindById(id));
         }
+        [Authorize]
         public IActionResult Edit(Achievement edited)
         {
             repository.Update(edited);
             return View("Index",repository.FindAll());
         }
+        [Authorize]
         public IActionResult DeleteForm(int id)
         {
             return View(repository.FindById(id));
         }
+        [Authorize]
         public IActionResult Delete(Achievement achievement)
         {
             repository.Delete(achievement.Id);

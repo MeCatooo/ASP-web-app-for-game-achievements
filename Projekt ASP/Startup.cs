@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Projekt_ASP.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Projekt_ASP
 {
@@ -28,8 +29,13 @@ namespace Projekt_ASP
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
             services.AddTransient<AchievementRepositoryInterface, EFAchievementRepository>();
             services.AddTransient<ICRUDAchievementRepository, EFCRUDEAchievementRepository>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
         }
@@ -53,6 +59,7 @@ namespace Projekt_ASP
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
@@ -60,6 +67,7 @@ namespace Projekt_ASP
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
