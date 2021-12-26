@@ -7,11 +7,13 @@
 <div>
     <form asp-action="Login" asp-controller="Account">
         <div>
+            <div>@Html.ValidationMessage("WrongUser")</div>
             <span asp-validation-for="Name"></span>
             <div><label asp-for="Name">Nazwa użytkownika: </label></div>
             <input asp-for="Name" />
         </div>
         <div>
+            <span asp-validation-for="Name"></span>
             <div><label asp-for="Password">Hasło: </label></div>
             <input asp-for="Password" />
         </div>

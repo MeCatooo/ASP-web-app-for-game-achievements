@@ -27,6 +27,7 @@ namespace Projekt_ASP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
             services.AddDbContext<AppIdentityDbContext>(options =>
@@ -36,8 +37,11 @@ namespace Projekt_ASP
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddMvc()
+                .AddSessionStateTempDataProvider();
+            services.AddSession();
 
-            services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,17 +59,18 @@ namespace Projekt_ASP
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseSession();
             app.UseAuthentication();
+            app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
             IdentitySeedData.EnsurePopulated(app);
         }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         //public IActionResult Index()
@@ -33,28 +34,26 @@ namespace Projekt_ASP.Controllers
             });
         }
         [AllowAnonymous]
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await
-               _userManager.FindByNameAsync(loginModel.Name);
+                IdentityUser user = await _userManager.FindByNameAsync(loginModel.Name);
                 if (user != null)
                 {
                     await _signInManager.SignOutAsync();
-                    if ((await _signInManager.PasswordSignInAsync(user,
-                    loginModel.Password, false, false)).Succeeded) ;
+                    if ((await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        return Redirect(loginModel?.ReturnUrl ??
-                       "/Admin/Index");
+                        return Redirect(loginModel?.ReturnUrl ?? "/Achievement");
                     }
+
                 }
             }
-            ModelState.AddModelError("", "Nieprawidłowa nazwa użytkownika lub hasło");
+            ModelState.AddModelError("WrongUser", "Nieprawidłowa nazwa użytkownika lub hasło");
             return View(loginModel);
         }
+
         public async Task<RedirectResult> Logout(string returnUrl = "/")
         {
             await _signInManager.SignOutAsync();
