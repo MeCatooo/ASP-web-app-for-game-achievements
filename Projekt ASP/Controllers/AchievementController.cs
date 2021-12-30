@@ -10,15 +10,18 @@ namespace Projekt_ASP.Controllers
 {
     public class AchievementController : Controller
     {
-        private ICRUDAchievementRepository repository;
-        static List<Achievement> achievements = new();
-        public AchievementController (ICRUDAchievementRepository repository)
+        private ICRUDAchievementRepositories achievementRepository;
+        private ICRUDCommentRepository commentRepository;
+        private ICRUDPostRepository postRepository;
+        public AchievementController(ICRUDAchievementRepositories achievementRepository, ICRUDCommentRepository commentRepository, ICRUDPostRepository postRepository)
         {
-            this.repository = repository;
+            this.achievementRepository = achievementRepository;
+            this.commentRepository = commentRepository;
+            this.postRepository = postRepository;
         }
         public ViewResult Index()
         {
-            return View(repository.FindAll());
+            return View(achievementRepository.FindAll());
         }
         //public IActionResult Index()
         //{
@@ -30,50 +33,83 @@ namespace Projekt_ASP.Controllers
         }
         public IActionResult Add(Achievement achievement)
         {
-
-            repository.Add(achievement);
-            return View("Index", repository.FindAll());
+            if (ModelState.IsValid)
+            {
+                achievementRepository.Add(achievement);
+                return View("Index", achievementRepository.FindAll());
+            }
+            else
+            {
+                return View("AddAchievement");
+            }
         }
-        public IActionResult View(int id)
-        {
-            var achievement = repository.FindById(id);
-            achievement.Comments = repository.FindComments(achievement.Id);
-            return View(achievement);
-        }
+        //public IActionResult View(int id) //TODO
+        //{
+        //    var achievement = achievementRepository.FindById(id);
+        //    achievement.Comments = commentRepository.FindComments(achievement.Id);
+        //    return View(achievement);
+        //}
         [Authorize]
         public IActionResult EditForm(int id)
         {
-            return View(repository.FindById(id));
+            return View(achievementRepository.FindById(id));
         }
         [Authorize]
         public IActionResult Edit(Achievement edited)
         {
-            repository.Update(edited);
-            return View("Index",repository.FindAll());
+            achievementRepository.Update(edited);
+            return View("Index", achievementRepository.FindAll());
         }
         [Authorize]
         public IActionResult DeleteForm(int id)
         {
-            return View(repository.FindById(id));
+            return View(achievementRepository.FindById(id));
         }
         [Authorize]
         public IActionResult Delete(Achievement achievement)
         {
-            repository.Delete(achievement.Id);
-            return View("Index", repository.FindAll());
+            achievementRepository.Delete(achievement.Id);
+            return View("Index", achievementRepository.FindAll());
         }
         public IActionResult AddCommentForm(int id)
+        {
+            ViewBag.PostId = id;
+            return View();
+        }
+        //public IActionResult AddComment(Comment comment)
+        //{
+        //    comment.PostTime = DateTime.Now;
+        //    commentRepository.Add(comment);
+        //    achievementRepository.AddCommentToAchievement(comment.CommentID, comment.AchievementId);
+        //    //var achievement = achievementRepository.FindById(comment.AchievementId);
+        //    //achievement.Comments = commentRepository.FindComments(comment.AchievementId);
+        //    return Redirect("Achievement/View/"+comment.AchievementId);
+        //}
+        public IActionResult ViewPosts(int id)
+        {
+            Achievement achievement = achievementRepository.FindById(id);
+            achievement.Posts = postRepository.FindPosts(id);
+            return View(achievement);
+        }
+        public IActionResult AddPostForm(int id)
         {
             ViewBag.AchievemntId = id;
             return View();
         }
-        public IActionResult AddComment(Comment comment)
+        public IActionResult AddPost(Post post)
         {
-            repository.Add(comment);
-            repository.AddCommentToAchievement(comment.CommentID, comment.AchievementId);
-            var achievement = repository.FindById(comment.AchievementId);
-            achievement.Comments = repository.FindComments(comment.AchievementId);
-            return View("View", achievement);
+            if (ModelState.IsValid)
+            {
+                post.PostTime = DateTime.Now;
+                postRepository.Add(post);
+                achievementRepository.AddPostToAchievement(post.PostId, post.AchievementId);
+                return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
+            }
+            else
+            {
+                ViewBag.AchievemntId = post.AchievementId;
+                return View("AddPostForm");
+            }
         }
 
     }

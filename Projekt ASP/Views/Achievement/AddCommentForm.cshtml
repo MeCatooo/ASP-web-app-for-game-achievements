@@ -5,7 +5,7 @@
 @{
 }
 <form asp-action="AddComment" asp-controller="Achievement" method="post">
-    <input type="hidden" asp-for="AchievementId" value="@ViewBag.AchievemntId" />
+    <input type="hidden" asp-for="Post.PostId" value="@ViewBag.AchievemntId" />
     <input type="text" class="form-text" asp-for="Text" />
     <button type="submit">Dodaj Komentarz</button>
 </form>

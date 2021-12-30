@@ -7,11 +7,17 @@
 <div>
     <form asp-action="Add" asp-controller="Achievement" method="post">
         <div>
-            <div><label asp-for="Name">Nazwa osiągnięcia: </label></div>
+            <div>
+                <div><span asp-validation-for="Name"></span></div>
+                <label asp-for="Name">Nazwa osiągnięcia: </label>
+            </div>
             <input asp-for="Name" />
         </div>
         <div>
-            <div><label asp-for="Game">Gra osiągnięcia: </label></div>
+            <div>
+                <div><span asp-validation-for="Game"></span></div>
+                <label asp-for="Game">Gra osiągnięcia: </label>
+            </div>
             <input asp-for="Game" />
         </div>
         <div>

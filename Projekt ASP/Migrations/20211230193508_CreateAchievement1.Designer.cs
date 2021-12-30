@@ -10,8 +10,8 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20211217134113_CreateAchievement")]
-    partial class CreateAchievement
+    [Migration("20211230193508_CreateAchievement1")]
+    partial class CreateAchievement1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

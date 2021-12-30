@@ -32,8 +32,10 @@ namespace Projekt_ASP
             options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
-            services.AddTransient<AchievementRepositoryInterface, EFAchievementRepository>();
-            services.AddTransient<ICRUDAchievementRepository, EFCRUDEAchievementRepository>();
+            //services.AddTransient<AchievementRepositoryInterface, EFAchievementRepository>();
+            services.AddTransient<ICRUDAchievementRepositories, EFCRUDEAchievementRepository>();
+            services.AddTransient<ICRUDCommentRepository, EFCRUDECommentRepository>();
+            services.AddTransient<ICRUDPostRepository, EFCRUDEPostRepository>();
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();

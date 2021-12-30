@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Projekt_ASP.Migrations
 {
-    public partial class CreateAchievement : Migration
+    public partial class CreateAchievement1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

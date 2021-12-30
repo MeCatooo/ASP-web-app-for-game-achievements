@@ -14,16 +14,17 @@ namespace Projekt_ASP.Models
         }
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
-    public class EFAchievementRepository : AchievementRepositoryInterface
-    {
-        private ApplicationDbContext _applicationDbContext;
-        public EFAchievementRepository(ApplicationDbContext applicationDbContext)
-        {
-            _applicationDbContext = applicationDbContext;
-        }
-        public IQueryable<Achievement> Achievements => _applicationDbContext.Achievements;
-        public IQueryable<Comment> Comments => _applicationDbContext.Comments;
-    }
+    //public class EFAchievementRepository : AchievementRepositoryInterface
+    //{
+    //    private ApplicationDbContext _applicationDbContext;
+    //    public EFAchievementRepository(ApplicationDbContext applicationDbContext)
+    //    {
+    //        _applicationDbContext = applicationDbContext;
+    //    }
+    //    public IQueryable<Achievement> Achievements => _applicationDbContext.Achievements;
+    //    public IQueryable<Comment> Comments => _applicationDbContext.Comments;
+    //}
 
 }

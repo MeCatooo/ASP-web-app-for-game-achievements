@@ -13,7 +13,7 @@
         {
             foreach (var achievement in @Model)
             {
-                <a asp-action="View" asp-route-id="@achievement.Id" asp-controller="Achievement">
+                <a asp-action="ViewPosts" asp-route-id="@achievement.Id" asp-controller="Achievement" class="text-decoration-none text-dark hover-shadow">
                     <div class="achievement">
                         <div>
                             @achievement.Name
@@ -21,9 +21,6 @@
                         <div>
                             @achievement.Game
                         </div>
-                        <div>
-                            @achievement.Achieved_By_Amount @*TO DO*@
-                        </div> 
                     </div>
                 </a>
             }
