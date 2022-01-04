@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Projekt_ASP.Migrations
+namespace Projekt_ASP.Migrations.AppIdentityDb
 {
-    public partial class CreateAchievement1 : Migration
+    public partial class CreateLogin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

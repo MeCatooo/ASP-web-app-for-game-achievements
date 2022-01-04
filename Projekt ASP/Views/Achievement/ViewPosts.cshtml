@@ -16,7 +16,7 @@
                 string link = "https://picsum.photos/50?random=";
                 string tmp = link + rnd.Next();
 
-                <a asp-action="ViewPosts" asp-route-id="@post.Achievement.Id" asp-controller="Achievement" class="text-decoration-none text-dark">
+                <a asp-action="ViewPost" asp-route-id="@post.Id" asp-controller="Achievement" class="text-decoration-none text-dark">
                     <div class="border border-dark border-2 rounded p-1 d-flex m-1">
                         <div>
                             <img src="@tmp" alt="Alternate Text" />
@@ -40,4 +40,6 @@
         }
     }
 </div>
-<a asp-action="AddPostForm" asp-controller="Achievement" asp-route-id="@Model.Id">Dodaj Post</a>
+<div><a asp-action="AddPostForm" asp-controller="Achievement" asp-route-id="@Model.Id">Dodaj Post</a></div>
+<div><a asp-controller="Achievement" asp-action="EditForm" asp-route-id="@Model.Id">Edytuj Achievement</a></div>
+<div><a asp-controller="Achievement" asp-action="DeleteForm" asp-route-id="@Model.Id">Usuń Achievement</a></div>

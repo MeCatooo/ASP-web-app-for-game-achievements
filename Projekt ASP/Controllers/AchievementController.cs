@@ -23,10 +23,6 @@ namespace Projekt_ASP.Controllers
         {
             return View(achievementRepository.FindAll());
         }
-        //public IActionResult Index()
-        //{
-        //    return View(achievements);
-        //}
         public IActionResult AddAchievement()
         {
             return View();
@@ -36,19 +32,20 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 achievementRepository.Add(achievement);
-                return View("Index", achievementRepository.FindAll());
+                return LocalRedirect("/Achievement/Index");
             }
             else
             {
                 return View("AddAchievement");
             }
         }
-        //public IActionResult View(int id) //TODO
-        //{
-        //    var achievement = achievementRepository.FindById(id);
-        //    achievement.Comments = commentRepository.FindComments(achievement.Id);
-        //    return View(achievement);
-        //}
+        public IActionResult ViewPost(int id) 
+        {
+            var post = postRepository.FindById(id);
+            post.Comments = commentRepository.FindComments(post.Id);
+            post.Achievement = achievementRepository.FindById(post.AchievementId);
+            return View(post);
+        }
         [Authorize]
         public IActionResult EditForm(int id)
         {
@@ -76,15 +73,20 @@ namespace Projekt_ASP.Controllers
             ViewBag.PostId = id;
             return View();
         }
-        //public IActionResult AddComment(Comment comment)
-        //{
-        //    comment.PostTime = DateTime.Now;
-        //    commentRepository.Add(comment);
-        //    achievementRepository.AddCommentToAchievement(comment.CommentID, comment.AchievementId);
-        //    //var achievement = achievementRepository.FindById(comment.AchievementId);
-        //    //achievement.Comments = commentRepository.FindComments(comment.AchievementId);
-        //    return Redirect("Achievement/View/"+comment.AchievementId);
-        //}
+        public IActionResult AddComment(Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                comment.PostTime = DateTime.Now;
+                commentRepository.Add(comment);
+                postRepository.AddCommentToPost(comment.Id, comment.PostId);
+                return LocalRedirect("/Achievement/ViewPost/" + comment.PostId);
+            }
+            else
+            {
+                return View("AddCommentForm");
+            }
+        }
         public IActionResult ViewPosts(int id)
         {
             Achievement achievement = achievementRepository.FindById(id);
@@ -102,7 +104,7 @@ namespace Projekt_ASP.Controllers
             {
                 post.PostTime = DateTime.Now;
                 postRepository.Add(post);
-                achievementRepository.AddPostToAchievement(post.PostId, post.AchievementId);
+                achievementRepository.AddPostToAchievement(post.Id, post.AchievementId);
                 return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
             }
             else
@@ -111,6 +113,27 @@ namespace Projekt_ASP.Controllers
                 return View("AddPostForm");
             }
         }
-
+        [Authorize]
+        public IActionResult EditFormPost(int id)
+        {
+            return View(postRepository.FindById(id));
+        }
+        [Authorize]
+        public IActionResult EditPost(Post edited)
+        {
+            postRepository.Update(edited);
+            return LocalRedirect("/Achievement/ViewPost/" + edited.Id);
+        }
+        [Authorize]
+        public IActionResult DeleteFormPost(int id)
+        {
+            return View(postRepository.FindById(id));
+        }
+        [Authorize]
+        public IActionResult DeletePost(Post post)
+        {
+            postRepository.Delete(post.Id);
+            return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
+        }
     }
 }

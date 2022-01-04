@@ -5,12 +5,14 @@
 @{
 
 }
-<div>Id:@Model.PostId</div>
-<div>Nazwa osiągnięcia: @Model.Text</div>
-<div>Gra w której osiągnięto: @Model.PostTime</div>
+<div>Id:@Model.Id</div>
+<div>Nazwa osiągnięcia: @Model.Achievement.Name</div>
+<div>Gra w której osiągnięto: @Model.Achievement.Game</div>
+<div>@Model.Title</div>
+<div>@Model.Text</div>
 
-<span><a asp-controller="Achievement" asp-action="EditForm" asp-route-id="@Model.PostId">Edytuj</a></span>
-<span><a asp-controller="Achievement" asp-action="DeleteForm" asp-route-id="@Model.PostId">Usuń</a></span>
+<span><a asp-controller="Achievement" asp-action="EditFormPost" asp-route-id="@Model.Id">Edytuj</a></span>
+<span><a asp-controller="Achievement" asp-action="DeleteFormPost" asp-route-id="@Model.Id">Usuń</a></span>
 @{
     if (Model.Comments != null)
     {
@@ -32,6 +34,6 @@
     }
 
 }
-<div class="m-2"><a asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.PostId">Dodaj komentarz</a></div>
+<div class="m-2"><a asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.Id">Dodaj komentarz</a></div>
 @*<button class="m-2 btn-primary" asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.Id">Dodaj komentarz</button>*@
 

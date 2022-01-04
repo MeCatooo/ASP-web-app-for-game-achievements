@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projekt_ASP.Models;
 
-namespace Projekt_ASP.Migrations.ApplicationDb
+namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211230193529_CreateAchievement")]
-    partial class CreateAchievement
+    [Migration("20220103113909_CreateAchivement")]
+    partial class CreateAchivement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,21 +43,22 @@ namespace Projekt_ASP.Migrations.ApplicationDb
 
             modelBuilder.Entity("Projekt_ASP.Models.Comment", b =>
                 {
-                    b.Property<int>("CommentID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PostTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Text")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CommentID");
+                    b.HasKey("Id");
 
                     b.HasIndex("PostId");
 
@@ -66,7 +67,7 @@ namespace Projekt_ASP.Migrations.ApplicationDb
 
             modelBuilder.Entity("Projekt_ASP.Models.Post", b =>
                 {
-                    b.Property<int>("PostId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -87,7 +88,7 @@ namespace Projekt_ASP.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PostId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AchievementId");
 
@@ -98,7 +99,9 @@ namespace Projekt_ASP.Migrations.ApplicationDb
                 {
                     b.HasOne("Projekt_ASP.Models.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Post");
                 });

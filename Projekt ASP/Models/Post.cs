@@ -8,7 +8,7 @@ namespace Projekt_ASP.Models
 {
     public class Post
     {
-        public int PostId { get; set; }
+        public int Id { get; set; }
         public Achievement Achievement { get; set; }
         public int AchievementId { get; set; }
         public IList<Comment> Comments { get; set; }

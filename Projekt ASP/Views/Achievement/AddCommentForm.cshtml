@@ -5,7 +5,11 @@
 @{
 }
 <form asp-action="AddComment" asp-controller="Achievement" method="post">
-    <input type="hidden" asp-for="Post.PostId" value="@ViewBag.AchievemntId" />
-    <input type="text" class="form-text" asp-for="Text" />
-    <button type="submit">Dodaj Komentarz</button>
+    <input type="hidden" asp-for="PostId" value="@ViewBag.PostId" />
+    <div>
+        <div><span asp-validation-for="Text"></span></div>
+        <label asp-for="Text">Treść komentarza</label>
+        <input type="text" class="form-text" asp-for="Text" />
+    </div>
+    <button type="submit">Dodaj nowy komentarz</button>
 </form>

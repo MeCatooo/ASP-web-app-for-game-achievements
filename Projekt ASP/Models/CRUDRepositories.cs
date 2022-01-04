@@ -32,6 +32,8 @@ namespace Projekt_ASP.Models
         List<Post> FindPosts(int id);
         Post Update(Post Post);
         void Delete(int id);
+        Post FindById(int id);
+        void AddCommentToPost(int CommentId, int PostId);
     }
 
     public class EFCRUDEAchievementRepository : ICRUDAchievementRepositories
@@ -115,7 +117,7 @@ namespace Projekt_ASP.Models
 
         public IList<Comment> FindComments(int id)
         {
-            IEnumerable<Comment> commentsQuery = from Comment in _context.Comments where Comment.Post.PostId == id select Comment;
+            IEnumerable<Comment> commentsQuery = from Comment in _context.Comments where Comment.Post.Id == id select Comment;
             return commentsQuery.ToList();
         }
         public void Delete(int id)
@@ -154,6 +156,18 @@ namespace Projekt_ASP.Models
         {
             _context.Posts.Remove(_context.Posts.Find(id));
             _context.SaveChanges();
+        }
+
+        public Post FindById(int id)
+        {
+            return _context.Posts.Find(id);
+        }
+        public void AddCommentToPost(int CommentId, int PostId)
+        {
+            var post = _context.Posts.Find(PostId);
+            var comment = _context.Comments.Find(CommentId);
+            post.Comments.Add(comment);
+            Update(post);
         }
     }
 
