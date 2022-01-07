@@ -10,18 +10,18 @@ namespace Projekt_ASP.Controllers
 {
     public class AchievementController : Controller
     {
-        private ICRUDAchievementRepositories achievementRepository;
-        private ICRUDCommentRepository commentRepository;
-        private ICRUDPostRepository postRepository;
-        public AchievementController(ICRUDAchievementRepositories achievementRepository, ICRUDCommentRepository commentRepository, ICRUDPostRepository postRepository)
+        private ICRUDEAchievementRepository repository;
+        //private ICRUDCommentRepository commentRepository;
+        //private ICRUDPostRepository postRepository;
+        public AchievementController(ICRUDEAchievementRepository achievementRepository)
         {
-            this.achievementRepository = achievementRepository;
-            this.commentRepository = commentRepository;
-            this.postRepository = postRepository;
+            this.repository = achievementRepository;
+            //this.commentRepository = commentRepository;
+            //this.postRepository = postRepository;
         }
         public ViewResult Index()
         {
-            return View(achievementRepository.FindAll());
+            return View(repository.FindAll());
         }
         public IActionResult AddAchievement()
         {
@@ -31,7 +31,7 @@ namespace Projekt_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                achievementRepository.Add(achievement);
+                repository.Add(achievement);
                 return LocalRedirect("/Achievement/Index");
             }
             else
@@ -41,32 +41,32 @@ namespace Projekt_ASP.Controllers
         }
         public IActionResult ViewPost(int id) 
         {
-            var post = postRepository.FindById(id);
-            post.Comments = commentRepository.FindComments(post.Id);
-            post.Achievement = achievementRepository.FindById(post.AchievementId);
+            var post = repository.FindPostById(id);
+            post.Comments = repository.FindComments(post.Id);
+            post.Achievement = repository.FindAchievementById(post.AchievementId);
             return View(post);
         }
         [Authorize]
         public IActionResult EditForm(int id)
         {
-            return View(achievementRepository.FindById(id));
+            return View(repository.FindAchievementById(id));
         }
         [Authorize]
         public IActionResult Edit(Achievement edited)
         {
-            achievementRepository.Update(edited);
-            return View("Index", achievementRepository.FindAll());
+            repository.Update(edited);
+            return View("Index", repository.FindAll());
         }
         [Authorize]
         public IActionResult DeleteForm(int id)
         {
-            return View(achievementRepository.FindById(id));
+            return View(repository.FindAchievementById(id));
         }
         [Authorize]
         public IActionResult Delete(Achievement achievement)
         {
-            achievementRepository.Delete(achievement.Id);
-            return View("Index", achievementRepository.FindAll());
+            repository.Delete(achievement.Id);
+            return View("Index", repository.FindAll());
         }
         public IActionResult AddCommentForm(int id)
         {
@@ -78,8 +78,8 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 comment.PostTime = DateTime.Now;
-                commentRepository.Add(comment);
-                postRepository.AddCommentToPost(comment.Id, comment.PostId);
+                repository.Add(comment);
+                repository.AddCommentToPost(comment.Id, comment.PostId);
                 return LocalRedirect("/Achievement/ViewPost/" + comment.PostId);
             }
             else
@@ -89,8 +89,8 @@ namespace Projekt_ASP.Controllers
         }
         public IActionResult ViewPosts(int id)
         {
-            Achievement achievement = achievementRepository.FindById(id);
-            achievement.Posts = postRepository.FindPosts(id);
+            Achievement achievement = repository.FindAchievementById(id);
+            achievement.Posts = repository.FindPosts(id);
             return View(achievement);
         }
         public IActionResult AddPostForm(int id)
@@ -103,8 +103,8 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 post.PostTime = DateTime.Now;
-                postRepository.Add(post);
-                achievementRepository.AddPostToAchievement(post.Id, post.AchievementId);
+                repository.Add(post);
+                repository.AddPostToAchievement(post.Id, post.AchievementId);
                 return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
             }
             else
@@ -116,23 +116,23 @@ namespace Projekt_ASP.Controllers
         [Authorize]
         public IActionResult EditFormPost(int id)
         {
-            return View(postRepository.FindById(id));
+            return View(repository.FindPostById(id));
         }
         [Authorize]
         public IActionResult EditPost(Post edited)
         {
-            postRepository.Update(edited);
+            repository.Update(edited);
             return LocalRedirect("/Achievement/ViewPost/" + edited.Id);
         }
         [Authorize]
         public IActionResult DeleteFormPost(int id)
         {
-            return View(postRepository.FindById(id));
+            return View(repository.FindPostById(id));
         }
         [Authorize]
         public IActionResult DeletePost(Post post)
         {
-            postRepository.Delete(post.Id);
+            repository.Delete(post.Id);
             return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
         }
     }
