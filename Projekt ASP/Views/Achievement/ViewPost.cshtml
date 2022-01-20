@@ -21,8 +21,9 @@
             <div class="border border-primary border-2 p-2 fon">
                 <div>
                     @item.PostTime
-                    <div>
-                        @item.Text
+                    <div class="d-flex justify-content-between">
+                        <span>@item.Text</span>
+                        <a asp-action="DeleteFormComment" asp-route-id="@item.Id" asp-controller="Achievement" class="text-dark">Usuń</a>
                     </div>
                 </div>
             </div>

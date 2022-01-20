@@ -13,7 +13,7 @@ namespace Projekt_ASP.Models
         [Required]
         public string Game { get; set; }
         public int Id { get; set; }
-        public IList<Post> Posts { get; set; }
+        public IList<Post> Posts { get; set; } = new List<Post>();
     }
 }
 

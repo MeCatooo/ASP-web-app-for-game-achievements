@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Projekt_ASP.Models
 {
-    public interface ICRUDEAchievementRepository
+    public interface ICRUDAchievementRepository
     {
         Achievement Add(Achievement achievement);
-        void Delete(int id);
+        void DeleteAchievement(int id);
         Achievement Update(Achievement achievement);
         Achievement FindAchievementById(int id);
-        IList<Achievement> FindAll();
-        IList<Achievement> FindPage(int page, int size);
+        List<Achievement> FindAll();
+        List<Achievement> FindPage(int page, int size);
         void AddPostToAchievement(int PostId, int AchievementId);
         Post Add(Post post);
         List<Post> FindPosts(int id);
@@ -20,8 +20,8 @@ namespace Projekt_ASP.Models
         Post FindPostById(int id);
         void AddCommentToPost(int CommentId, int PostId);
         Comment Add(Comment comment);
-        IList<Comment> FindComments(int id);
-        Comment Update(Comment comment);
+        List<Comment> FindComments(int id);
+        Comment FindCommnetById(int id);
         void DeleteComment(int id);
 
     }

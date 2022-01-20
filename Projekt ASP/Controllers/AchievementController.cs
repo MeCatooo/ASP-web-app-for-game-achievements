@@ -10,14 +10,10 @@ namespace Projekt_ASP.Controllers
 {
     public class AchievementController : Controller
     {
-        private ICRUDEAchievementRepository repository;
-        //private ICRUDCommentRepository commentRepository;
-        //private ICRUDPostRepository postRepository;
-        public AchievementController(ICRUDEAchievementRepository achievementRepository)
+        private ICRUDAchievementRepository repository;
+        public AchievementController(ICRUDAchievementRepository achievementRepository)
         {
             this.repository = achievementRepository;
-            //this.commentRepository = commentRepository;
-            //this.postRepository = postRepository;
         }
         public ViewResult Index()
         {
@@ -65,7 +61,7 @@ namespace Projekt_ASP.Controllers
         [Authorize]
         public IActionResult Delete(Achievement achievement)
         {
-            repository.Delete(achievement.Id);
+            repository.DeleteAchievement(achievement.Id);
             return View("Index", repository.FindAll());
         }
         public IActionResult AddCommentForm(int id)
@@ -78,7 +74,7 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 comment.PostTime = DateTime.Now;
-                repository.Add(comment);
+                comment=repository.Add(comment);
                 repository.AddCommentToPost(comment.Id, comment.PostId);
                 return LocalRedirect("/Achievement/ViewPost/" + comment.PostId);
             }
@@ -103,7 +99,7 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 post.PostTime = DateTime.Now;
-                repository.Add(post);
+                post=repository.Add(post);
                 repository.AddPostToAchievement(post.Id, post.AchievementId);
                 return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
             }
@@ -132,8 +128,17 @@ namespace Projekt_ASP.Controllers
         [Authorize]
         public IActionResult DeletePost(Post post)
         {
-            repository.Delete(post.Id);
+            repository.DeletePost(post.Id);
             return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
+        }
+        public IActionResult DeleteFormComment(int id)
+        {
+            return View(repository.FindCommnetById(id));
+        }
+        public IActionResult DeleteComment(Comment comment)
+        {
+            repository.DeleteComment(comment.Id);
+            return LocalRedirect("/Achievement/ViewPost/" + comment.PostId);
         }
     }
 }

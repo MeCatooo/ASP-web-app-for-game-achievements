@@ -22,11 +22,11 @@ namespace Projekt_ASP.Models
     //    void AddCommentToPost(int CommentId, int PostId);
     //}
 
-    public class EFCRUDEAchievementRepository : ICRUDEAchievementRepository
+    public class EFCRUDAchievementRepository : ICRUDAchievementRepository
     {
         private ApplicationDbContext _context;
 
-        public EFCRUDEAchievementRepository(ApplicationDbContext context)
+        public EFCRUDAchievementRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -43,13 +43,13 @@ namespace Projekt_ASP.Models
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void DeleteAchievement(int id)
         {
             _context.Achievements.Remove(_context.Achievements.Find(id));
             _context.SaveChanges();
         }
 
-        public IList<Achievement> FindAll()
+        public List<Achievement> FindAll()
         {
             return _context.Achievements.ToList();
         }
@@ -59,7 +59,7 @@ namespace Projekt_ASP.Models
             return _context.Achievements.Find(id);
         }
 
-        public IList<Achievement> FindPage(int page, int size)
+        public List<Achievement> FindPage(int page, int size)
         {
             return (from achievement in _context.Achievements orderby achievement.Name select achievement).Skip(page * size).Take(size).ToList();
         }
@@ -120,14 +120,12 @@ namespace Projekt_ASP.Models
             _context.SaveChanges();
             return entityEntry.Entity;
         }
-        public Comment Update(Comment comment)
+        public Comment FindCommnetById(int id)
         {
-            EntityEntry<Comment> entity = _context.Comments.Update(comment);
-            _context.SaveChanges();
-            return entity.Entity;
+            return _context.Comments.Find(id);
         }
 
-        public IList<Comment> FindComments(int id)
+        public List<Comment> FindComments(int id)
         {
             IEnumerable<Comment> commentsQuery = from Comment in _context.Comments where Comment.Post.Id == id select Comment;
             return commentsQuery.ToList();

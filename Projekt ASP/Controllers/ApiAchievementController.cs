@@ -12,9 +12,9 @@ namespace Projekt_ASP.Controllers
     [ApiController]
     public class ApiAchievementController : ControllerBase
     {
-        private ICRUDEAchievementRepository repository;
+        private ICRUDAchievementRepository repository;
 
-        public ApiAchievementController(ICRUDEAchievementRepository repository)
+        public ApiAchievementController(ICRUDAchievementRepository repository)
         {
             this.repository = repository;
         }
@@ -24,7 +24,7 @@ namespace Projekt_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Delete(id);
+                repository.DeleteAchievement(id);
                 return Ok();
             }
             else

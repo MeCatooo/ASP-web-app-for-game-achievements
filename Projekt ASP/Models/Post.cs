@@ -11,7 +11,7 @@ namespace Projekt_ASP.Models
         public int Id { get; set; }
         public Achievement Achievement { get; set; }
         public int AchievementId { get; set; }
-        public IList<Comment> Comments { get; set; }
+        public IList<Comment> Comments { get; set; } = new List<Comment>();
         [Required]
         public string Title { get; set; }
         public string Text { get; set; }
