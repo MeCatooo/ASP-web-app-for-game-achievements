@@ -28,16 +28,22 @@ namespace Projekt_ASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
             services.AddDbContext<AppIdentityDbContext>(options =>
+            options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
+            services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration["Data:achievementsTable:ConnectionString"]));
             services.AddTransient<ICRUDAchievementRepository, EFCRUDAchievementRepository>();
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddSingleton<BasicAuthorizationFilter>();
             services.AddMvc()
-                .AddSessionStateTempDataProvider();
+                .AddSessionStateTempDataProvider()
+                .AddMvcOptions(options =>
+                {
+                    options.Filters.AddService<BasicAuthorizationFilter>();
+                });
+
             services.AddSession();
 
 

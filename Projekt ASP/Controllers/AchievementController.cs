@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
+    [DisableBasicAuthentication]
     public class AchievementController : Controller
     {
         private ICRUDAchievementRepository repository;
@@ -15,6 +16,7 @@ namespace Projekt_ASP.Controllers
         {
             this.repository = achievementRepository;
         }
+        [DisableBasicAuthentication]
         public ViewResult Index()
         {
             return View(repository.FindAll());

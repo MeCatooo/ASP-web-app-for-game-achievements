@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
+    [DisableBasicAuthentication]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
+    [DisableBasicAuthentication]
     [Authorize]
     public class AccountController : Controller
     {
