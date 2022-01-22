@@ -119,6 +119,7 @@ namespace Projekt_ASP.Controllers
         [Authorize]
         public IActionResult EditPost(Post edited)
         {
+            edited.PostTime = DateTime.Now;
             repository.Update(edited);
             return LocalRedirect("/Achievement/ViewPost/" + edited.Id);
         }

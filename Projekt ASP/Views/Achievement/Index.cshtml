@@ -15,10 +15,13 @@
             {
                 <a asp-action="ViewPosts" asp-route-id="@achievement.Id" asp-controller="Achievement" class="text-decoration-none text-dark hover-shadow">
                     <div class="achievement">
-                        <div>
-                            @achievement.Name
+                        <div class="font-weight-bold">
+                            "@achievement.Name"
                         </div>
                         <div>
+                            in game
+                        </div>
+                        <div class="font-weight-bold">
                             @achievement.Game
                         </div>
                     </div>
