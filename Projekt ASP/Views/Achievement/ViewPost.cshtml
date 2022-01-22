@@ -8,8 +8,8 @@
 <div>Id:@Model.Id</div>
 <div>Nazwa osiągnięcia: @Model.Achievement.Name</div>
 <div>Gra w której osiągnięto: @Model.Achievement.Game</div>
-<div>@Model.Title</div>
-<div>@Model.Text</div>
+<h4>@Model.Title</h4>
+<h6>@Model.Text</h6>
 
 <span><a asp-controller="Achievement" asp-action="EditFormPost" asp-route-id="@Model.Id">Edytuj</a></span>
 <span><a asp-controller="Achievement" asp-action="DeleteFormPost" asp-route-id="@Model.Id">Usuń</a></span>
@@ -23,7 +23,7 @@
                     @item.PostTime
                     <div class="d-flex justify-content-between">
                         <span>@item.Text</span>
-                        <a asp-action="DeleteFormComment" asp-route-id="@item.Id" asp-controller="Achievement" class="text-dark">Usuń</a>
+                        <a asp-action="DeleteFormComment" asp-route-id="@item.Id" asp-controller="Achievement" class="text-dark btn-secondary">Usuń</a>
                     </div>
                 </div>
             </div>
@@ -36,5 +36,4 @@
 
 }
 <div class="m-2"><a asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.Id">Dodaj komentarz</a></div>
-@*<button class="m-2 btn-primary" asp-controller="Achievement" asp-action="AddCommentForm" asp-route-id="@Model.Id">Dodaj komentarz</button>*@
 

@@ -53,6 +53,7 @@ namespace Projekt_ASP.Controllers
                 return NotFound();
             }
         }
+        
         [HttpPost]
         public IActionResult Add([FromBody] Achievement achievement)
         {
@@ -60,6 +61,26 @@ namespace Projekt_ASP.Controllers
             {
                 Achievement achievement1 = repository.Add(achievement);
                 return new CreatedResult($"/api/achievement/{achievement1.Id}", achievement);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPut]
+        public IActionResult Update([FromBody] Achievement achievement)
+        {
+            if (ModelState.IsValid)
+            {
+                if (repository.FindAchievementById(achievement.Id) != null)
+                {
+                    repository.Update(achievement);
+                    return new CreatedResult($"/api/achievement/{achievement.Id}", achievement);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             else
             {

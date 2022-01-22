@@ -13,10 +13,6 @@ namespace Projekt_ASP.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
         private UserManager<IdentityUser> _userManager;
         private SignInManager<IdentityUser> _signInManager;
         public AccountController(UserManager<IdentityUser> userManager,
