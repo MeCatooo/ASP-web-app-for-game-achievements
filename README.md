@@ -4,8 +4,15 @@ Każdy z 3 obiektów można usuwać po zalogowaniu.
 Edytować można posty oraz achievementy. 
 Posiada funkcjonalne API za pomocą którego można pobrierać, zmieniać lub usuwać achievementy i posty po udanej weryfikacji
 
-Konfiguracja przed uruchomieniem:
+Konfiguracja przed uruchomieniem gotowa baza na webio:
+
+(Opcjonalnie) uruchomić testy, aby upewnić się, że wszystko działa tak jak należy
+Uruchomić stronę.
+
+
+Konfiguracja przed uruchomieniem lokalna baza SQL:
+
 Ustawić własny "ConnectionString" dla achievementsTable w pliku appsettings.json oraz zmienić nazwę bazy danych albo upewnić się że nie ma takiej na serwrze SQL
 W konsoli nugget wpisać "update-database -verbose --context ApplicationDbContext" oraz "update-database -verbose --context AppIdentityDbContext"
 (Opcjonalnie) uruchomić testy, aby upewnić się, że wszystko działa tak jak należy
-Uruchomić stronę
+Uruchomić stronę.
