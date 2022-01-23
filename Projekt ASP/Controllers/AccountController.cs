@@ -42,7 +42,7 @@ namespace Projekt_ASP.Controllers
                     await _signInManager.SignOutAsync();
                     if ((await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        return Redirect(loginModel?.ReturnUrl ?? "/Achievement");
+                        return Redirect(loginModel?.ReturnUrl ?? "/MeCatooo/Achievement");
                     }
 
                 }
@@ -51,7 +51,7 @@ namespace Projekt_ASP.Controllers
             return View(loginModel);
         }
 
-        public async Task<RedirectResult> Logout(string returnUrl = "/")
+        public async Task<RedirectResult> Logout(string returnUrl = "/MeCatooo/")
         {
             await _signInManager.SignOutAsync();
             return Redirect(returnUrl);

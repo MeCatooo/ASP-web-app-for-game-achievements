@@ -30,7 +30,7 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 repository.Add(achievement);
-                return LocalRedirect("/Achievement/Index");
+                return LocalRedirect("/MeCatooo/Achievement/Index");
             }
             else
             {
@@ -78,7 +78,7 @@ namespace Projekt_ASP.Controllers
                 comment.PostTime = DateTime.Now;
                 comment=repository.Add(comment);
                 repository.AddCommentToPost(comment.Id, comment.PostId);
-                return LocalRedirect("/Achievement/ViewPost/" + comment.PostId);
+                return LocalRedirect("/MeCatooo/Achievement/ViewPost/" + comment.PostId);
             }
             else
             {
@@ -103,7 +103,7 @@ namespace Projekt_ASP.Controllers
                 post.PostTime = DateTime.Now;
                 post=repository.Add(post);
                 repository.AddPostToAchievement(post.Id, post.AchievementId);
-                return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
+                return LocalRedirect("/MeCatooo/Achievement/ViewPosts/" + post.AchievementId);
             }
             else
             {
@@ -121,7 +121,7 @@ namespace Projekt_ASP.Controllers
         {
             edited.PostTime = DateTime.Now;
             repository.Update(edited);
-            return LocalRedirect("/Achievement/ViewPost/" + edited.Id);
+            return LocalRedirect("/MeCatooo/Achievement/ViewPost/" + edited.Id);
         }
         [Authorize]
         public IActionResult DeleteFormPost(int id)
@@ -132,7 +132,7 @@ namespace Projekt_ASP.Controllers
         public IActionResult DeletePost(Post post)
         {
             repository.DeletePost(post.Id);
-            return LocalRedirect("/Achievement/ViewPosts/" + post.AchievementId);
+            return LocalRedirect("/MeCatooo/Achievement/ViewPosts/" + post.AchievementId);
         }
         public IActionResult DeleteFormComment(int id)
         {
@@ -141,7 +141,7 @@ namespace Projekt_ASP.Controllers
         public IActionResult DeleteComment(Comment comment)
         {
             repository.DeleteComment(comment.Id);
-            return LocalRedirect("/Achievement/ViewPost/" + comment.PostId);
+            return LocalRedirect("/MeCatooo/Achievement/ViewPost/" + comment.PostId);
         }
     }
 }
