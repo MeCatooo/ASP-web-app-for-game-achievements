@@ -16,3 +16,11 @@ Ustawić własny "ConnectionString" dla achievementsTable w pliku appsettings.js
 W konsoli nugget wpisać "update-database -verbose --context ApplicationDbContext" oraz "update-database -verbose --context AppIdentityDbContext"
 (Opcjonalnie) uruchomić testy, aby upewnić się, że wszystko działa tak jak należy
 Uruchomić stronę.
+
+
+Informacje o stronie na hostingu:
+
+Projekt, udało mi się wrzucić na darmowy hosting "FreeAspHosting".
+Na hostingu jest najnowsza wersja projektu z github’a, która jest połączona bazą SQL.
+Api działa, jednak  aby używać wtyczki „bomerang” należy użyć autoryzacji z danymi „admin”, „1234” inaczej pojawi się błąd  401.
+Wpisując adres normalnie w przeglądarkę pojawia się standardowe okno do logowania.
